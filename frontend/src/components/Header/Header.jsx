@@ -1,7 +1,7 @@
 import React from "react";
 import { Navbar, NavbarBrand, Container } from "reactstrap";
 
-import dashboardRoutes from "routes/dashboard.jsx";
+import dashboardRoutes from "../../routes/dashboard.jsx";
 
 class Header extends React.Component {
   constructor(props) {

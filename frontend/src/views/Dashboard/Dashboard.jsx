@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, CardBody, CardFooter, CardTitle, Row, Col } from "reactstrap";
 
-import Stats from "components/Stats/Stats.jsx";
+import Stats from "../../components/Stats/Stats.jsx";
 
 class Dashboard extends React.Component {
   render() {
@@ -14,7 +14,7 @@ class Dashboard extends React.Component {
                 <Row>
                   <Col xs={5} md={4}>
                     <div className="icon-big text-center">
-                      <i className="nc-icon nc-globe text-warning" />
+                      <i className="nc-icon nc-bell-55 text-warning" />
                     </div>
                   </Col>
                   <Col xs={7} md={8}>
@@ -44,7 +44,7 @@ class Dashboard extends React.Component {
                 <Row>
                   <Col xs={5} md={4}>
                     <div className="icon-big text-center">
-                      <i className="nc-icon nc-money-coins text-success" />
+                      <i className="nc-icon nc-badge text-success" />
                     </div>
                   </Col>
                   <Col xs={7} md={8}>
@@ -74,7 +74,7 @@ class Dashboard extends React.Component {
                 <Row>
                   <Col xs={5} md={4}>
                     <div className="icon-big text-center">
-                      <i className="nc-icon nc-vector text-danger" />
+                      <i className="nc-icon nc-chat-33 text-danger" />
                     </div>
                   </Col>
                   <Col xs={7} md={8}>

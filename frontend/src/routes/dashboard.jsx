@@ -1,13 +1,13 @@
-import Dashboard from "views/Dashboard/Dashboard.jsx";
-import Notifications from "views/Notifications/Notifications.jsx";
-import Icons from "views/Icons/Icons.jsx";
-import TableList from "views/TableList/TableList.jsx";
-import UserPage from "views/UserPage/UserPage.jsx";
+import Dashboard from "../views/Dashboard/Dashboard.jsx";
+import Notifications from "../views/Notifications/Notifications.jsx";
+import Icons from "../views/Icons/Icons.jsx";
+import TableList from "../views/TableList/TableList.jsx";
+import UserPage from "../views/UserPage/UserPage.jsx";
 
 var dashRoutes = [
   {
     path: "/dashboard",
-    name: "Dashboard",
+    name: "Menu",
     icon: "nc-icon nc-bank",
     component: Dashboard
   },
@@ -19,19 +19,19 @@ var dashRoutes = [
   },
   {
     path: "/notifications",
-    name: "Notifications",
-    icon: "nc-icon nc-bell-55",
+    name: "agenda",
+    icon: "nc-icon nc-calendar-60",
     component: Notifications
   },
   {
     path: "/user-page",
-    name: "User Profile",
+    name: "Pacientes",
     icon: "nc-icon nc-single-02",
     component: UserPage
   },
   {
     path: "/tables",
-    name: "Table List",
+    name: "Prontuário",
     icon: "nc-icon nc-tile-56",
     component: TableList
   },
