@@ -1,0 +1,22 @@
+{
+  "name": "pshychotech",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/loader.js",
+  "scripts": {
+    "dev": "nodemon"
+  },
+  "author": "Yago Matos",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^1.0.2",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "express-query-int": "^1.0.1",
+    "jsonwebtoken": "^7.3.0",
+    "lodash": "^4.17.11",
+    "mongoose": "^4.7.0",
+    "node-restful": "^0.2.5",
+    "nodemon": "^1.18.6"
+  }
+}

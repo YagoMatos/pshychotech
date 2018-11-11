@@ -1,4 +1,6 @@
 import React from "react";
+import axios from "axios"; 
+
 import { Card, CardHeader, CardBody, CardTitle, CardFooter, Row, Col } from "reactstrap";
 
 import CardAuthor from "../../components/CardElements/CardAuthor.jsx";
@@ -9,7 +11,19 @@ import damirBosnjak from "../../assets/img/damir-bosnjak.jpg";
 import mike from "../../assets/img/mike.jpg";
 
 class User extends React.Component {
-  render() {
+  constructor () {
+    super()
+    this.state = {
+      nome: ''
+    }
+  }
+
+  componentDidMount(){
+    axios.get(`http://localhost:3001/oapi/paciente/`)
+    .then(response => this.setState({nome: response.data[0].nome} ))
+  }
+  
+  render(){
     return (
       <div className="content">
         <Row>
@@ -22,7 +36,7 @@ class User extends React.Component {
                 <CardAuthor
                   avatar={mike}
                   avatarAlt="..."
-                  title="Chet Faker" //props.name
+                  title={this.state.nome} //props.name
                   description="chet@gmail.com" //props.email
                 />
                 <p className="description text-center">
@@ -120,6 +134,11 @@ class User extends React.Component {
                       }
                     ]}
                   />
+                  <Row>
+                      <Col md={12}>
+                          
+                      </Col>
+                  </Row>
                   <Row>
                     <div className="update ml-auto mr-auto">
                       <Button color="success" round>Salvar</Button>
