@@ -1,8 +1,19 @@
 import React, { Component } from "react";
 import axios from "axios"; 
 
-import { FormGroup, Input, Label, Form, Alert } from 'reactstrap';
-import { Card, CardHeader, CardBody, CardTitle, Row, Col } from "reactstrap";
+import { 
+  FormGroup, 
+  Input, 
+  Label, 
+  Form, 
+  Alert,
+  Card, 
+  CardHeader, 
+  CardBody, 
+  CardTitle, 
+  Row, 
+  Col 
+} from 'reactstrap';
 import Button from "../../components/CustomButton/CustomButton.jsx";
 
 class RegisterPage extends Component {
@@ -14,7 +25,7 @@ class RegisterPage extends Component {
       cpf: '',
     }
   }
-
+  
   registerPatient(){
     const name = this.state.nome;
     const email = this.state.email;

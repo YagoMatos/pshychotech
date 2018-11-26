@@ -55,9 +55,13 @@ router.get('/search/:name', async (req, res) => {
 
 router.put('/:patientId', async (req, res) => {
     try {
-        const patient = await Patient.findByIdAndUpdate(req.params.patientId);
+        const { name, rg, cpf, email, enable } = req.body;
+        const patient = await Patient.findByIdAndUpdate(req.params.patientId, {
+            name, rg, cpf, email, enable
+        }, {new: true });
 
         return res.send({ patient })
+
     } catch (err){
         return res.status(400).send({ error: 'Tente mais tarde'})
     }

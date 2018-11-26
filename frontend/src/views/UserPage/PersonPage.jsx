@@ -1,30 +1,93 @@
-import React from "react";
+import React, { Component } from "react";
 import axios from "axios"; 
 
-import { Card, CardHeader, CardBody, CardTitle, CardFooter, Row, Col } from "reactstrap";
-
 import CardAuthor from "../../components/CardElements/CardAuthor.jsx";
-import FormInputs from "../../components/FormInputs/FormInputs.jsx";
+import { 
+  FormGroup, 
+  Input, 
+  Label, 
+  Form, 
+  Alert,
+  Card, 
+  CardHeader, 
+  CardBody, 
+  CardTitle,
+  CardFooter,
+  Row, 
+  Col 
+} from 'reactstrap';
 import Button from "../../components/CustomButton/CustomButton.jsx";
-
 import damirBosnjak from "../../assets/img/damir-bosnjak.jpg";
 import mike from "../../assets/img/mike.jpg";
 
-class SearchPage extends React.Component {
+class PersonPage extends Component {
   constructor () {
     super()
     this.state = {
-      nome: ''
+      name2: '',
+      patient: {
+        name: '',
+        cpf: '',
+        rg: '',
+        enable: '',
+        email: '',
+        _id: '',
     }
+  }
+}
+
+  handleChangeName(event) {
+    const test = event.target.value;
+    console.log(test);
+    this.setState({
+      name2: event.target.value
+    })
+    console.log(test);
+
   }
 
   componentDidMount(){
-    axios.get(`http://localhost:3001/oapi/paciente/`)
-    // .then(response => this.setState({nome: response.data[0].nome} ))
-    .then(response => console.log(response.data))
+    console.log(this.props.location.pathname)
+    const patientId = this.props.location.pathname;
+    axios.get(`http://localhost:3003${patientId}`)
+    .then(response => {
+      const patient = response.data;
+      this.setState({ patient: patient.patient });
+      this.setState({ name2: patient.patient.name });
+      console.log(patient.patient);
+      console.log(patient.patient.name);
+    })
+  }
+
+  registerPatient(){
+    const name = this.state.name2;
+    const email = this.state.patient.email;
+    const rg = this.state.patient.rg;
+    const cpf = this.state.patient.cpf;
+    const patientId = this.state.patient._id;
+    const enable = this.state.patient.enable;
+
+    const patient = {
+      name,
+      cpf,
+      rg,
+      enable,
+      email,
+      patientId,
+  };
+
+  console.log(patientId);
+
+  axios.put(`http://localhost:3003/patient/${patientId}`, patient)
+      .then(response => {
+          alert("sucess");
+          console.log(response.data);
+        })
   }
   
   render(){
+    const { name, cpf, rg, enable, email } = this.state.patient;
+
     return (
       <div className="content">
         <Row>
@@ -37,8 +100,8 @@ class SearchPage extends React.Component {
                 <CardAuthor
                   avatar={mike}
                   avatarAlt="..."
-                  title={this.state.nome} //props.name
-                  description="chet@gmail.com" //props.email
+                  title={name} //props.name
+                  description={email} //props.email
                 />
                 <p className="description text-center">
                   (11) 94564-4849 
@@ -73,79 +136,70 @@ class SearchPage extends React.Component {
                 <CardTitle>Informações Básicas</CardTitle>
               </CardHeader>
               <CardBody>
-                <form>
-                  <FormInputs
-                    ncols={["col-md-6", "col-md-6 px-1"]}
-                    proprieties={[
-                      {
-                        label: "Nome",
-                        inputProps: {
-                          type: "text",
-                          defaultValue: "Chetfaker"
-                        }
-                      },
-                      {
-                        label: "Email",
-                        inputProps: {
-                          type: "email",
-                          placeholder: "Email"
-                        }
-                      }
-                    ]}
-                  />
-                  <FormInputs
-                    ncols={["col-md-6 pr-1", "col-md-6 pl-1"]}
-                    proprieties={[
-                      {
-                        label: "Telefone",
-                        inputProps: {
-                          type: "text",
-                          placeholder: "(xx) xxxx-xxxx",
-                          defaultValue: "(11) 4564-4849"
-                        }
-                      },
-                      {
-                        label: "Celular",
-                        inputProps: {
-                          type: "text",
-                          placeholder: "(xx)xxxxx-xxxx)",
-                          defaultValue: "(11) 94564-4849"
-                        }
-                      }
-                    ]}
-                  />
-                    <FormInputs
-                    ncols={["col-md-6 pr-1", "col-md-6 pl-1"]}
-                    proprieties={[
-                      {
-                        label: "RG",
-                        inputProps: {
-                          type: "text",
-                          placeholder: "xx.xxx.xxx-x",
-                          defaultValue: "55.321.222-3"
-                        }
-                      },
-                      {
-                        label: "CPF",
-                        inputProps: {
-                          type: "text",
-                          placeholder: "xxx.xxx.xxx-xx",
-                          defaultValue: "456.374.340-34"
-                        }
-                      }
-                    ]}
-                  />
+              <Form>
                   <Row>
-                      <Col md={12}>
-                          
+                    <Col md={6} xs={12}>
+                      <FormGroup> 
+                          <Label>Nome</Label>
+                          <Input 
+                            type="text" 
+                            placeholder="Nome" 
+                            value={this.state.name2}
+                            onChange={(event) => this.handleChangeName(event)}
+                          />
+                        </FormGroup>
+                      </Col>
+                      <Col md={6} xs={12}>
+                        <FormGroup>
+                          <Label>Email</Label>
+                          <Input 
+                            type="text" 
+                            placeholder="Email" 
+                            value={email}
+                            onChange={(event) => this.setState({email: event.target.value})}
+                          />
+                        </FormGroup>
                       </Col>
                   </Row>
                   <Row>
+                    <Col md={6} xl={12}>
+                      <FormGroup>
+                          <Label>RG</Label>
+                          <Input 
+                            type="text" 
+                            placeholder="RG" 
+                          />
+                      </FormGroup>
+                    </Col>
+                    <Col md={6} xl={12}>
+                      <FormGroup>
+                          <Label>CPF</Label>
+                          <Input 
+                            type="text" 
+                            placeholder="CPF" 
+                            value={cpf}
+                            onChange={(event) => this.setState({cpf: event.target.value})}
+                          />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row>
                     <div className="update ml-auto mr-auto">
-                      <Button color="success" round>Salvar</Button>
+                      <Button 
+                        color="success" 
+                        round
+                        onClick={() => this.registerPatient()}
+                      >Salvar</Button>
+                      </div>
+                      <div className="update ml-auto mr-auto">
+                       <Button 
+                        color="danger" 
+                        round
+                        onClick={() => this.handleCancel()}
+                      >Cancelar</Button>
                     </div>
                   </Row>
-                </form>
+                </Form>
               </CardBody>
             </Card>
           </Col>
@@ -155,4 +209,4 @@ class SearchPage extends React.Component {
   }
 }
 
-export default SearchPage;
+export default PersonPage;

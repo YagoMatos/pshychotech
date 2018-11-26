@@ -5,6 +5,7 @@ import TableList from "../views/TableList/TableList.jsx";
 import PatientPage from "../views/UserPage/PatientPage.jsx";
 import RegisterPage from "../views/UserPage/RegisterPage.jsx";
 import SearchPage from "../views/UserPage/SearchPage.jsx";
+import PersonPage from "../views/UserPage/PersonPage.jsx";
 
 var dashRoutes = [
   {
@@ -44,6 +45,10 @@ var dashRoutes = [
   {
     path: "/patient-search",
     component: SearchPage
+  },
+  {
+    path: "/patient",
+    component: PersonPage
   },
   { redirect: true, path: "/", pathTo: "/dashboard", name: "Dashboard" }
 ];

@@ -3,13 +3,14 @@ import axios from "axios";
 
 import { Form, Card, CardBody, FormGroup, Input, Row, Col } from "reactstrap";
 import Button from "../../components/CustomButton/CustomButton.jsx";
-
+import CardPatient from './CardPatient/CardPatent';
 
 class SearchPage extends React.Component {
   constructor () {
     super()
     this.state = {
       nome: '',
+      error:'',
       patients: []
     }
   }
@@ -19,11 +20,16 @@ class SearchPage extends React.Component {
     axios.get(`http://localhost:3003/patient/search/${name}`)
     .then(response => {
       const patients = response.data;
-      this.setState({ patients });
-      console.log(this.state.patients);
+      this.setState({ patients: patients.patient });
+
+      console.log(patients.patient);
     })
   }
-  
+
+  patientClicked(id){
+    console.log(id)
+  }
+
   render(){
     return (
       <div className="content">
@@ -62,12 +68,16 @@ class SearchPage extends React.Component {
         </Row>
         <Row>
           <Col md={6}>
-            <Card>
-              <CardBody>
-                <ul>
-                </ul>
-                </CardBody>
-              </Card>
+              { this.state.patients.map(p => {
+                return (
+                  <CardPatient
+                    key={p._id} 
+                    name={p.name}
+                    id={p._id}
+                    clicked={() => this.patientClicked(p._id)}
+                  />
+                )
+              })}
             </Col>
         </Row>
 
