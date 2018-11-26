@@ -2,7 +2,9 @@ import Dashboard from "../views/Dashboard/Dashboard.jsx";
 import Notifications from "../views/Notifications/Notifications.jsx";
 import Icons from "../views/Icons/Icons.jsx";
 import TableList from "../views/TableList/TableList.jsx";
-import UserPage from "../views/UserPage/UserPage.jsx";
+import PatientPage from "../views/UserPage/PatientPage.jsx";
+import RegisterPage from "../views/UserPage/RegisterPage.jsx";
+import SearchPage from "../views/UserPage/SearchPage.jsx";
 
 var dashRoutes = [
   {
@@ -27,13 +29,21 @@ var dashRoutes = [
     path: "/user-page",
     name: "Pacientes",
     icon: "nc-icon nc-single-02",
-    component: UserPage
+    component: PatientPage
   },
   {
     path: "/tables",
     name: "Prontuário",
     icon: "nc-icon nc-tile-56",
     component: TableList
+  },
+  {
+    path: "/patient-register",
+    component: RegisterPage
+  },
+  {
+    path: "/patient-search",
+    component: SearchPage
   },
   { redirect: true, path: "/", pathTo: "/dashboard", name: "Dashboard" }
 ];
