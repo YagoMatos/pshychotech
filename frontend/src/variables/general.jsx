@@ -2,7 +2,7 @@
 // // // table head data and table body data for Tables view
 // #############################
 
-const thead = ["Name", "Country", "City", "Salary"];
+const thead = ["Nome do Paciente", "Data", "Horário", "Ação"];
 const tbody = [
   {
     className: "table-success",
@@ -25,10 +25,6 @@ const tbody = [
     data: ["Doris Greene", "Malawi", "Feldkirchen in Kärnten", "$63,542"]
   },
   { className: "", data: ["Mason Porter", "Chile", "Gloucester", "$78,615"] },
-  {
-    className: "table-warning",
-    data: ["Jon Porter", "Portugal", "Gloucester", "$98,615"]
-  }
 ];
 
 // data for <thead> of table in TableList view

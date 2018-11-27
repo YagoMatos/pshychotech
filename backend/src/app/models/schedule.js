@@ -7,18 +7,18 @@ const ScheduleSchema = new mongoose.Schema({
     },
     day: {
         type: String,
-        require: true,
     },
     mouth: {
         type: String,
-        require: true,
     },
     year: {
         type: String,
-        require: true,
+    },
+    date: {
+        type: String,
+        require: true
     },
     hour: {
-        unique: true,
         type: String,
         require: true,
     }

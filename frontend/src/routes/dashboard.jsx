@@ -1,5 +1,5 @@
 import Dashboard from "../views/Dashboard/Dashboard.jsx";
-import Notifications from "../views/Notifications/Notifications.jsx";
+import Schedule from "../views/Schedule/Schedule.jsx";
 import Icons from "../views/Icons/Icons.jsx";
 import TableList from "../views/TableList/TableList.jsx";
 import PatientPage from "../views/UserPage/PatientPage.jsx";
@@ -21,10 +21,10 @@ var dashRoutes = [
     component: Icons
   },
   {
-    path: "/notifications",
+    path: "/schedule",
     name: "agenda",
     icon: "nc-icon nc-calendar-60",
-    component: Notifications
+    component: Schedule
   },
   {
     path: "/user-page",

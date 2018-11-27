@@ -3,15 +3,15 @@ const authMiddleware = require('../middlewares/authMiddleware');
 
 const router = express.Router();
 
-router.use(authMiddleware);
+// router.use(authMiddleware);
 
 const Schedule = require('../models/schedule');
 
 router.post('/register', async (req, res) => {
-    const { hour, day, mouth } = req.body;
+    const { date, hour } = req.body;
 
     try {
-        if (await Schedule.findOne({ day, hour, mouth, year }))
+        if (await Schedule.findOne({ date, hour }))
             return res.status(400).send({ error: 'Horário marcado' });
 
         const schedule = await Schedule.create(req.body);
@@ -35,8 +35,10 @@ router.get('/', async (req, res) => {
 
 router.put('/:scheduleId', async (req, res) => {
     try {
-        const schedule = await Schedule.findByIdAndUpdate(req.params.patientId);
-
+        const { date, hour, title } = req.body;
+        const schedule = await Schedule.findByIdAndUpdate(req.params.scheduleId, {
+            date, hour, title
+        }, {new: true });
         return res.send({ schedule })
     } catch (err){
         return res.status(400).send({ error: 'Tente mais tarde'})
@@ -46,7 +48,7 @@ router.put('/:scheduleId', async (req, res) => {
 
 router.delete('/:scheduleId', async (req, res) => {
     try {
-        const schedule = await Schedule.findByIdAndRemove(req.params.patientId);
+        const schedule = await Schedule.findByIdAndRemove({_id: req.params.scheduleId});
 
         return res.send({ schedule })
     } catch (err){

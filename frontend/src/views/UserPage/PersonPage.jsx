@@ -24,7 +24,11 @@ class PersonPage extends Component {
   constructor () {
     super()
     this.state = {
-      name2: '',
+      patientName: '',
+      patientCpf: '',
+      patientEmail: '',
+      patientId: '',
+      patientEnable: '',
       patient: {
         name: '',
         cpf: '',
@@ -37,35 +41,60 @@ class PersonPage extends Component {
 }
 
   handleChangeName(event) {
-    const test = event.target.value;
-    console.log(test);
     this.setState({
-      name2: event.target.value
+      patientName: event.target.value
     })
-    console.log(test);
+  }
 
+  handleChangeEnable(event) {
+    this.setState({
+      patientEnable: event.target.value
+    })
+  }
+
+  handleChangeRg(event) {
+    this.setState({
+      patientRg: event.target.value
+    })
+  }
+
+  handleChangeCpf(event) {
+    this.setState({
+      patientCpf: event.target.value
+    })
+  }
+
+  handleChangeEmail(event) {
+    this.setState({
+      patientEmail: event.target.value
+    })
   }
 
   componentDidMount(){
-    console.log(this.props.location.pathname)
+    // console.log(this.props.location.pathname)
     const patientId = this.props.location.pathname;
     axios.get(`http://localhost:3003${patientId}`)
     .then(response => {
       const patient = response.data;
       this.setState({ patient: patient.patient });
-      this.setState({ name2: patient.patient.name });
+      this.setState({
+        patientName: patient.patient.name,
+        patientCpf: patient.patient.cpf,
+        patientEmail: patient.patient.email,
+        patientId: patient.patient._id,
+        patientEnable: patient.patient.enable,
+      });
       console.log(patient.patient);
-      console.log(patient.patient.name);
     })
   }
 
   registerPatient(){
-    const name = this.state.name2;
-    const email = this.state.patient.email;
-    const rg = this.state.patient.rg;
-    const cpf = this.state.patient.cpf;
+    const name = this.state.patientName;
+    const email = this.state.patientEmail;
+    const rg = this.state.patientRg;
+    const cpf = this.state.patientCpf;
     const patientId = this.state.patient._id;
-    const enable = this.state.patient.enable;
+    const enable = this.state.patientEnable;
 
     const patient = {
       name,
@@ -144,7 +173,7 @@ class PersonPage extends Component {
                           <Input 
                             type="text" 
                             placeholder="Nome" 
-                            value={this.state.name2}
+                            value={this.state.patientName}
                             onChange={(event) => this.handleChangeName(event)}
                           />
                         </FormGroup>
@@ -155,8 +184,8 @@ class PersonPage extends Component {
                           <Input 
                             type="text" 
                             placeholder="Email" 
-                            value={email}
-                            onChange={(event) => this.setState({email: event.target.value})}
+                            value={this.state.patientEmail}
+                            onChange={(event) => this.handleChangeEmail(event)}
                           />
                         </FormGroup>
                       </Col>
@@ -177,8 +206,8 @@ class PersonPage extends Component {
                           <Input 
                             type="text" 
                             placeholder="CPF" 
-                            value={cpf}
-                            onChange={(event) => this.setState({cpf: event.target.value})}
+                            value={this.state.patientCpf}
+                            onChange={(event) => this.handleChangeCpf(event)}
                           />
                       </FormGroup>
                     </Col>
