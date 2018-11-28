@@ -73,6 +73,7 @@ class SearchPage extends Component {
               <CardPatient
                 key={p._id} 
                 name={p.name}
+                email={p.email}
                 id={p._id}
                 clicked={() => this.patientClicked(p._id)}
               />

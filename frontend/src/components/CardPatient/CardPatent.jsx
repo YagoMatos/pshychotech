@@ -1,20 +1,20 @@
 import React, {Component} from 'react';
-import { Card, CardBody } from "reactstrap";
+import { Card, CardBody, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 
 class CardPatient extends Component{
     render(){
         return(  
-            <Card onClick={this.props.clicked}>
-                    <Link to={{
-                        pathname:`patient/${this.props.id}`
-                    }}> 
+                <Link to={{
+                    pathname:`patient/${this.props.id}`
+                }}> 
+                    <Card onClick={this.props.clicked}>
                         <CardBody>
-                        {this.props.enable}
-                        {this.props.name} 
+                            {this.props.name}
                         </CardBody>
-                    </Link>
-            </Card>
+                    </Card>
+                </Link>
+            
         )
     }
 };

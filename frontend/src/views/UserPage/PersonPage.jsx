@@ -9,7 +9,6 @@ import {
   Input, 
   Label, 
   Form, 
-  Alert,
   Card, 
   CardHeader, 
   CardBody, 
@@ -32,6 +31,9 @@ class PersonPage extends Component {
       patientEmail: '',
       patientId: '',
       patientEnable: '',
+      patientEnd: '',
+      patientRg: '',
+      patientTel: '',
       reports: '',
       patient: {
         name: '',
@@ -39,6 +41,8 @@ class PersonPage extends Component {
         rg: '',
         enable: '',
         email: '',
+        telefone: '',
+        endereco: '',
         _id: '',
     }
   }
@@ -57,8 +61,8 @@ class PersonPage extends Component {
   }
 
   handleChangeRg(event) {
-    this.setState({
-      patientRg: event.target.value
+      this.setState({
+        patientRg: event.target.value
     })
   }
 
@@ -74,11 +78,24 @@ class PersonPage extends Component {
     })
   }
 
+  handleChangeTel(event) {
+    this.setState({
+      patientTel: event.target.value
+    })
+  }
+
+  handleChangeEnd(event) {
+    this.setState({
+      patientEnd: event.target.value
+    })
+  }
+
   componentDidMount(){
     // console.log(this.props.location.pathname)
     const patientId = this.props.location.pathname;
     axios.get(`http://localhost:3003${patientId}`)
     .then(response => {
+        console.log(response.data);
         const patient = response.data;
         this.setState({ patient: patient.patient });
         this.setState({
@@ -87,6 +104,9 @@ class PersonPage extends Component {
           patientEmail: patient.patient.email,
           patientId: patient.patient._id,
           patientEnable: patient.patient.enable,
+          patientRg: patient.patient.rg,
+          patientTel: patient.patient.telefone,
+          patientEnd: patient.patient.endereco,
         });
         this.renderReports(patient.patient._id);
     });
@@ -103,9 +123,7 @@ class PersonPage extends Component {
   }
 
   reports(){
-    console.log(this.state.reports);
     return(
-
       <Report patientIdReport={this.state.patientId} report={this.state.reports}/>
     );
   }
@@ -117,6 +135,8 @@ class PersonPage extends Component {
     const cpf = this.state.patientCpf;
     const patientId = this.state.patient._id;
     const enable = this.state.patientEnable;
+    const endereco = this.state.patientEnd;
+    const telefone = this.state.patientTel;
 
     const patient = {
       name,
@@ -124,6 +144,8 @@ class PersonPage extends Component {
       rg,
       enable,
       email,
+      endereco,
+      telefone,
       patientId,
   };
 
@@ -132,12 +154,13 @@ class PersonPage extends Component {
   axios.put(`http://localhost:3003/patient/${patientId}`, patient)
       .then(response => {
           alert("sucess");
+          window.location=`${patientId}`
           console.log(response.data);
         })
   }
   
   render(){
-    const { name, cpf, rg, enable, email } = this.state.patient;
+    const { name, enable, email } = this.state.patient;
 
     return (
       <div className="content">
@@ -154,31 +177,7 @@ class PersonPage extends Component {
                   title={name} 
                   description={email}
                 />
-                <p className="description text-center">
-                  
-                </p>
               </CardBody>
-              <CardFooter>
-                <hr />
-                <div className="button-container">
-                  <Row>
-                    <Col xs={6} sm={6} md={6} lg={6} className="ml-auto">
-                      <h5>
-                        12
-                        <br/>
-                        <small>Consultas</small>
-                      </h5>
-                    </Col>
-                    <Col xs={6} sm={6} md={6} lg={6} className="mr-auto ml-auto">
-                      <h5>
-                        12
-                        <br/>
-                        <small>Relatórios</small>
-                      </h5>
-                    </Col>
-                  </Row>
-                </div>
-              </CardFooter>
             </Card>
           </Col>
           <Col md={8} xs={12}>
@@ -189,7 +188,7 @@ class PersonPage extends Component {
               <CardBody>
               <Form>
                   <Row>
-                    <Col md={6} xs={12}>
+                    <Col md={6}>
                       <FormGroup> 
                           <Label>Nome</Label>
                           <Input 
@@ -201,7 +200,7 @@ class PersonPage extends Component {
                           />
                         </FormGroup>
                       </Col>
-                      <Col md={6} xs={12}>
+                      <Col md={6}>
                         <FormGroup>
                           <Label>Email</Label>
                           <Input 
@@ -215,25 +214,53 @@ class PersonPage extends Component {
                       </Col>
                   </Row>
                   <Row>
-                    <Col md={6} xl={12}>
+                    <Col md={6}>
                       <FormGroup>
                           <Label>RG</Label>
                           <Input 
                             required
-                            type="text" 
+                            type="number" 
                             placeholder="RG" 
+                            value={this.state.patientRg}
+                            onChange={(event) => this.handleChangeRg(event)}
                           />
                       </FormGroup>
                     </Col>
-                    <Col md={6} xl={12}>
+                    <Col md={6}>
                       <FormGroup>
                           <Label>CPF</Label>
                           <Input 
                             required
-                            type="text" 
+                            type="number" 
                             placeholder="CPF" 
                             value={this.state.patientCpf}
                             onChange={(event) => this.handleChangeCpf(event)}
+                          />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col md={4}>
+                      <FormGroup>
+                          <Label>Telefone</Label>
+                          <Input 
+                            required
+                            type="number" 
+                            placeholder="telefone" 
+                            value={this.state.patientTel}
+                            onChange={(event) => this.handleChangeTel(event)}
+                          />
+                      </FormGroup>
+                    </Col>
+                    <Col md={8}>
+                      <FormGroup>
+                          <Label>Endereço</Label>
+                          <Input 
+                            required
+                            type="text" 
+                            placeholder="endereço" 
+                            value={this.state.patientEnd}
+                            onChange={(event) => this.handleChangeEnd(event)}
                           />
                       </FormGroup>
                     </Col>

@@ -55,9 +55,9 @@ router.get('/search/:name', async (req, res) => {
 
 router.put('/:patientId', async (req, res) => {
     try {
-        const { name, rg, cpf, email, enable } = req.body;
+        const { name, rg, cpf, email, enable, endereco, telefone } = req.body;
         const patient = await Patient.findByIdAndUpdate(req.params.patientId, {
-            name, rg, cpf, email, enable
+            name, rg, cpf, email, enable, endereco, telefone
         }, {new: true });
 
         return res.send({ patient })

@@ -23,11 +23,7 @@ const PatientSchema = new mongoose.Schema({
         type: String,
         require: true,
     },
-    celular: {
-        type: String,
-        require: true,
-    },
-    plano: {
+    endereco: {
         type: String,
         require: true,
     },
@@ -35,12 +31,7 @@ const PatientSchema = new mongoose.Schema({
         type: Boolean,
         require: true,
         default: true,
-    },
-    report: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Report',
-        require: true,
-    }],
+    }
 });
 
 const Patient = mongoose.model('Patient', PatientSchema);
