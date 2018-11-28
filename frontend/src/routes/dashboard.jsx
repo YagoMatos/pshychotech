@@ -1,7 +1,5 @@
 import Dashboard from "../views/Dashboard/Dashboard.jsx";
 import Schedule from "../views/Schedule/Schedule.jsx";
-import Icons from "../views/Icons/Icons.jsx";
-import TableList from "../views/TableList/TableList.jsx";
 import PatientPage from "../views/UserPage/PatientPage.jsx";
 import RegisterPage from "../views/UserPage/RegisterPage.jsx";
 import SearchPage from "../views/UserPage/SearchPage.jsx";
@@ -15,12 +13,6 @@ var dashRoutes = [
     component: Dashboard
   },
   {
-    path: "/icons",
-    name: "Icons",
-    icon: "nc-icon nc-diamond",
-    component: Icons
-  },
-  {
     path: "/schedule",
     name: "agenda",
     icon: "nc-icon nc-calendar-60",
@@ -31,12 +23,6 @@ var dashRoutes = [
     name: "Pacientes",
     icon: "nc-icon nc-single-02",
     component: PatientPage
-  },
-  {
-    path: "/tables",
-    name: "Prontuário",
-    icon: "nc-icon nc-tile-56",
-    component: TableList
   },
   {
     path: "/patient-register",

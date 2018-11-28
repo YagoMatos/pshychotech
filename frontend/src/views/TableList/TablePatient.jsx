@@ -15,8 +15,6 @@ import {
 } from "reactstrap";
 import Button from "../../components/CustomButton/CustomButton.jsx";
 
-//import { thead, tbody } from "../../variables/general";
-
 class RegularTables extends React.Component {
     constructor(props) {
         super(props);
@@ -42,19 +40,20 @@ class RegularTables extends React.Component {
         })
       }
 
-      changeHour(event){
+      changeDate(event){
+        console.log(this.state.hour);
         this.setState({
             date: event.target.value
         })
       }
 
-      changeDate(event){
+      changeHour(event){
         this.setState({
             hour: event.target.value
         })
       }
     editSchedule(){
-        console.log(this.props.id);
+        console.log(this.state.hour);
 
         const date = this.state.date;
         const title = this.state.title;
@@ -70,6 +69,7 @@ class RegularTables extends React.Component {
         axios.put(`http://localhost:3003/schedule/${scheduleId}`, schedule)
             .then(response => {
                 alert("sucess");
+                window.location = "schedule"
                 console.log(response.data);
             })
     }
@@ -85,6 +85,7 @@ class RegularTables extends React.Component {
     }
 
   render() {
+    console.log(this.state.hour);
     return (
         <tbody>
             <tr  onClick={this.props.clicked} id={this.props.id}>

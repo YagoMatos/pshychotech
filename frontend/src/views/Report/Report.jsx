@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios"; 
+import axios from 'axios';
 
 import { 
     Card, 
@@ -11,29 +11,20 @@ import {
     Col 
 } from "reactstrap";
 
-import ModalSchedule from "./ModalSchedule.jsx";
-import TablePatient from '../TableList/TablePatient.jsx';
+import ModalReport from "./ModalReport";
+import ReportTable from './ReportTable.jsx';
 
-class Schedule extends Component {
+class Report extends Component {
     constructor () {
         super()
         this.state = {
-          schedules: []
+          report: '',
         }
       }
 
-    componentDidMount(){
-        axios.get(`http://localhost:3003/schedule/`)
-        .then(response => {
-            const schedule = response.data
-            this.setState({ schedules: schedule.schedule });
-            console.log(schedule);
-        })
-      }
-
-      patientClicked(id){
-        console.log(id)
-      }
+    reportClicked(id){
+    console.log(id)
+    }
 
     render(){
         return (
@@ -42,10 +33,10 @@ class Schedule extends Component {
                 <Col md={12}>
                     <Card>
                         <CardHeader>
-                            <CardTitle>Agenda</CardTitle>
+                            <CardTitle>Relatórios das Consultas</CardTitle>
                         </CardHeader>
                         <CardBody>
-                            <ModalSchedule/>
+                            <ModalReport patientIdReport={this.props.patientIdReport}/>
                         </CardBody>
                     </Card>
                 </Col>
@@ -54,30 +45,32 @@ class Schedule extends Component {
                 <Col xs={12}>
                     <Card className="card-plain">
                     <CardHeader>
-                        <CardTitle tag="h4">Consultas</CardTitle>
+                        <CardTitle tag="h4">Relatórios</CardTitle>
                     </CardHeader>
                     <CardBody>
                         <Table responsive>
                         <thead className="text-primary">
                             <tr>
-                                <th>Paciente</th>
-                                <th>Data</th>
-                                <th>Hora</th>
+                                <th>Data da Consula</th>
                                 <th>Ação</th>
                             </tr>
                         </thead>
-                        { this.state.schedules.map(p => {
+                        { 
+                            this.props.report.length !== 0 ? 
+                            this.props.report.report.map(repo => {
                                 return (
-                                <TablePatient
-                                    key={p._id} 
-                                    date={p.date}
-                                    title={p.title}
-                                    hour={p.hour}
-                                    id={p._id}
-                                    clicked={() => this.patientClicked(p._id)}
+                                <ReportTable
+                                    key={repo._id} 
+                                    date={repo.date}
+                                    title={repo.title}
+                                    id={repo._id}
+                                    patientIdReport={this.props.patientIdReport}
+                                    clicked={() => this.reportClicked(repo._id)}
                                 />
                                 )
-                            })}
+                            }) : null
+                            
+                        }
                         </Table>
                     </CardBody>
                     </Card>
@@ -88,4 +81,4 @@ class Schedule extends Component {
     }
 }
 
-export default Schedule;
+export default Report;

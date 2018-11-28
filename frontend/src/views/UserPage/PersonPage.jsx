@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios"; 
+import { Link } from "react-router-dom";
 
 import CardAuthor from "../../components/CardElements/CardAuthor.jsx";
+import Report from "../Report/Report.jsx";
 import { 
   FormGroup, 
   Input, 
@@ -16,6 +18,7 @@ import {
   Row, 
   Col 
 } from 'reactstrap';
+
 import Button from "../../components/CustomButton/CustomButton.jsx";
 import damirBosnjak from "../../assets/img/damir-bosnjak.jpg";
 import mike from "../../assets/img/mike.jpg";
@@ -29,6 +32,7 @@ class PersonPage extends Component {
       patientEmail: '',
       patientId: '',
       patientEnable: '',
+      reports: '',
       patient: {
         name: '',
         cpf: '',
@@ -75,17 +79,35 @@ class PersonPage extends Component {
     const patientId = this.props.location.pathname;
     axios.get(`http://localhost:3003${patientId}`)
     .then(response => {
-      const patient = response.data;
-      this.setState({ patient: patient.patient });
-      this.setState({
-        patientName: patient.patient.name,
-        patientCpf: patient.patient.cpf,
-        patientEmail: patient.patient.email,
-        patientId: patient.patient._id,
-        patientEnable: patient.patient.enable,
+        const patient = response.data;
+        this.setState({ patient: patient.patient });
+        this.setState({
+          patientName: patient.patient.name,
+          patientCpf: patient.patient.cpf,
+          patientEmail: patient.patient.email,
+          patientId: patient.patient._id,
+          patientEnable: patient.patient.enable,
+        });
+        this.renderReports(patient.patient._id);
+    });
+  }
+
+  renderReports(patientId){
+    axios.get(`http://localhost:3003/report/${patientId}`)
+    .then(response => {
+        console.log(response.data);
+          const report = response.data
+          this.setState({ reports: report });
+          console.log(this.state.reports);
       });
-      console.log(patient.patient);
-    })
+  }
+
+  reports(){
+    console.log(this.state.reports);
+    return(
+
+      <Report patientIdReport={this.state.patientId} report={this.state.reports}/>
+    );
   }
 
   registerPatient(){
@@ -129,11 +151,11 @@ class PersonPage extends Component {
                 <CardAuthor
                   avatar={mike}
                   avatarAlt="..."
-                  title={name} //props.name
-                  description={email} //props.email
+                  title={name} 
+                  description={email}
                 />
                 <p className="description text-center">
-                  (11) 94564-4849 
+                  
                 </p>
               </CardBody>
               <CardFooter>
@@ -174,6 +196,7 @@ class PersonPage extends Component {
                             type="text" 
                             placeholder="Nome" 
                             value={this.state.patientName}
+                            required
                             onChange={(event) => this.handleChangeName(event)}
                           />
                         </FormGroup>
@@ -183,6 +206,7 @@ class PersonPage extends Component {
                           <Label>Email</Label>
                           <Input 
                             type="text" 
+                            required
                             placeholder="Email" 
                             value={this.state.patientEmail}
                             onChange={(event) => this.handleChangeEmail(event)}
@@ -195,6 +219,7 @@ class PersonPage extends Component {
                       <FormGroup>
                           <Label>RG</Label>
                           <Input 
+                            required
                             type="text" 
                             placeholder="RG" 
                           />
@@ -204,6 +229,7 @@ class PersonPage extends Component {
                       <FormGroup>
                           <Label>CPF</Label>
                           <Input 
+                            required
                             type="text" 
                             placeholder="CPF" 
                             value={this.state.patientCpf}
@@ -221,16 +247,23 @@ class PersonPage extends Component {
                       >Salvar</Button>
                       </div>
                       <div className="update ml-auto mr-auto">
-                       <Button 
-                        color="danger" 
-                        round
-                        onClick={() => this.handleCancel()}
-                      >Cancelar</Button>
+                        <Link to="/" >
+                          <Button color="danger" round>
+                            Cancelar
+                          </Button>
+                        </Link>
                     </div>
                   </Row>
                 </Form>
               </CardBody>
             </Card>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={12}>
+            {
+              this.reports()
+            }
           </Col>
         </Row>
       </div>

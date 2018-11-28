@@ -1,9 +1,32 @@
-import React from "react";
+import React, { Component } from "react";
+import axios from 'axios';
+
 import { Card, CardBody, CardFooter, CardTitle, Row, Col } from "reactstrap";
 
 import Stats from "../../components/Stats/Stats.jsx";
 
-class Dashboard extends React.Component {
+class Dashboard extends Component {
+  state = {
+    patientLength: '',
+    reportLength: '',
+  }
+
+  componentDidMount(){
+    axios.get(`http://localhost:3003/patient/`)
+    .then(response => {
+        const patient = response.data
+        this.setState({ patientLength: patient.patient.length });
+        console.log(this.state.patientLength);
+    });
+
+    axios.get(`http://localhost:3003/report/`)
+    .then(response => {
+        const report = response.data
+        this.setState({ reportLength: report.report.length });
+        console.log(this.state.reportLength);
+    })
+
+  }
   render() {
     return (
       <div className="content">
@@ -50,7 +73,7 @@ class Dashboard extends React.Component {
                   <Col xs={7} md={8}>
                     <div className="numbers">
                       <p className="card-category">Paciente</p>
-                      <CardTitle tag="p">0</CardTitle>
+                      <CardTitle tag="p">{this.state.patientLength}</CardTitle>
                     </div>
                   </Col>
                 </Row>
@@ -80,7 +103,7 @@ class Dashboard extends React.Component {
                   <Col xs={7} md={8}>
                     <div className="numbers">
                       <p className="card-category">Atendimentos</p>
-                      <CardTitle tag="p">0</CardTitle>
+                      <CardTitle tag="p">{this.state.reportLength}</CardTitle>
                     </div>
                   </Col>
                 </Row>
