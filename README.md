@@ -35,12 +35,12 @@ You will need of Yarn (https://yarnpkg.com/lang/en/docs/install/#debian-stable) 
     ```sh
     $ mongod
     ```
-4) Create a database called pshychoech
+4) Create a database called codewave
  - With mongod active, running the command mongo, to open the sgbd
  
     ```sh
     $ mongo
-    $ use pshychoech
+    $ use codewave
     $ exit
     ```
 5) In folder backend (the previous step completed need) run command line node src/index.js 
