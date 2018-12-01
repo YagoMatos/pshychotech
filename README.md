@@ -1,4 +1,4 @@
-# Pshychotech (aplha version)
+# Pshychotech (alpha version)
 
 ### Technologies:
 - React
