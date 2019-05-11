@@ -1,4 +1,4 @@
-# Pshychotech (alpha version)
+# Psytech (alpha version)
 
 ### Technologies:
 - React
@@ -14,10 +14,10 @@ You will need of Yarn (https://yarnpkg.com/lang/en/docs/install/#debian-stable) 
 
 ### Start Development
 
-1) git clone https://github.com/YagoMatos/pshychotech
+1) git clone https://github.com/YagoMatos/psytech
 
     ```sh
-    $ git clone https://github.com/YagoMatos/pshychotech
+    $ git clone https://github.com/YagoMatos/psytech
     ```
 
 2) Enter in folder backend and frontend, and run yarn
